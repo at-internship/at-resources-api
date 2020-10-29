@@ -9,11 +9,12 @@
 		<version>2.3.4.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>demo</artifactId>
+	
+	<groupId>com.resources</groupId>
+	<artifactId>resources_api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>at-resources-api2</name>
+	<description>US RE-000 Create at-resources-api Container</description>
 
 	<properties>
 		<java.version>1.8</java.version>
