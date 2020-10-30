@@ -1,5 +1,5 @@
 package com.resources.errorhandling;
 
 public class PathErrorMessage {
-	public static final String pathApi = "/api/v1/story/";
+	public static final String pathApiDelete = "/api/v1/story/{_id}";
 }

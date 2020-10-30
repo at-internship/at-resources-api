@@ -10,5 +10,5 @@ public interface ServiceApplication {
 	public Story_id createStory(Story story);
 	public List<Story> getStories();
 	public List<Story> getStoriesBy_id(String id) ;
-	void deleteStory(String id);
+	public void deleteStory(String id);
 }

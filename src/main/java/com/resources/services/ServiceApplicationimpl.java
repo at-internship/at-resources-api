@@ -51,8 +51,8 @@ public class ServiceApplicationimpl implements ServiceApplication {
 			AtResourcesApi2Application.logger.info("Deleting story...");
 			repositoryApplication.deleteById(id);
 		} else {
-			AtResourcesApi2Application.logger.error("Tried to delete story but couldnt find an ID.");
-			throw new NotFoundException("noooooooooooooooo", PathErrorMessage.pathApi,HttpStatus.NOT_FOUND);
+			AtResourcesApi2Application.logger.error("Error. Not Found.");
+			throw new NotFoundException(HttpExceptionMessage.IDNOTFOUND, PathErrorMessage.pathApiDelete,HttpStatus.NOT_FOUND);
 		}
 	}
 

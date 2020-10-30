@@ -14,9 +14,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.resources.exception.ExceptionResponse;
+import com.resources.exception.NotFoundException;
 import com.resources.model.ApiError;
-import com.resources.errorhandling.HttpExceptionMessage;
-import com.resources.exception.BadRequestException;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
@@ -30,7 +29,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 			WebRequest request) {
 		
 		String path = request.getDescription(false).substring(4);
-		return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, 400, HttpExceptionMessage.IDNOTFOUND, path));
+		return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, 400, "Global error.", path));
 	}
 	
 	private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
@@ -38,7 +37,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	@ExceptionHandler
-	public final ResponseEntity<ExceptionResponse> handleBadRequestException(BadRequestException e) {
+	public final ResponseEntity<ExceptionResponse> handleNotFoundException(NotFoundException e) {
 
 		ExceptionResponse exceptionResponse = 
 				new ExceptionResponse(
@@ -47,7 +46,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 						HttpStatus.BAD_REQUEST,
 						e.getMessage(),
 						e.getPath());
-		return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.NOT_FOUND);
 	}
 	
 }//End class

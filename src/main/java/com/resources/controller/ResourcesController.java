@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.resources.AtResourcesApi2Application;
 import com.resources.model.Story;
 import com.resources.model.Story_id;
 import com.resources.services.ServiceApplication;
@@ -48,39 +47,31 @@ public class ResourcesController {
 		return converter;
 	}	
 
-	@GetMapping(value="/api/v1/story", produces = "application/json")
+	@GetMapping(value="/api/v1/story/hello", produces = "application/json")
 	@ResponseStatus(value = HttpStatus.OK)
 	public String getting(){
 	return ("Hello at-resources-api"); 
 	}
 	
-	@GetMapping(value="/api/v1/story/get", produces = "application/json")
+	@GetMapping(value="/api/v1/story", produces = "application/json")
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<Story> getAllStories(){
 		return serviceApplication.getStories();
 	}
 	
-	@PostMapping(value = "/api/v1/story/create", produces = "application/json")
+	@PostMapping(value = "/api/v1/story", produces = "application/json")
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public Story_id createUser(@RequestBody Story story) {
-		
 		Story_id userId =  new Story_id();
-		
 		userId = serviceApplication.createStory(story);
-		AtResourcesApi2Application.logger.info("OKOOOOOOOOOOOOOOOOOOOOOO");
 		return userId;		 
-	}//End Post
+	}
 
-	
-	@DeleteMapping(value = "/api/v1/story/{id}", produces = "application/json")
+	@DeleteMapping(value="/api/v1/story/{id}", produces = "application/json")
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public Story_id DeleteStory(@PathVariable String id) {
-		
-		Story_id userId =  new Story_id();
-		userId.setId(id);
+	public void DeleteStory(@PathVariable String id) {
 		serviceApplication.deleteStory(id);
-		return userId;		 
-	}//End Delete
-	
+		//return ("Story {"+id+"} was deleted."); 
+	}
 	
 }//End class
