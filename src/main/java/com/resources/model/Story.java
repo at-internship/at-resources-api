@@ -19,9 +19,9 @@ public class Story {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String _id; 
-	@GeneratedValue
+	//@GeneratedValue
 	private ObjectId sprint_id;
-	@GeneratedValue
+	//@GeneratedValue
 	private ObjectId user_id;
 	private Integer priority;
 	private String name;
