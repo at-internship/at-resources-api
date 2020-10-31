@@ -19,6 +19,8 @@ public class ResourcesServiceImpl implements ResourcesService {
 	@Override
 	public CreateStoryResponse createStory(Story story) {
 		CreateStoryResponse response = new CreateStoryResponse();
+		//story.setSprint_id(new ObjectId());
+		//story.setUser_id(new ObjectId());
 		response.setId(storyRepository.save(story).get_id());
 		log.info("Story saved with id: {}", response.getId());
 		return response;
