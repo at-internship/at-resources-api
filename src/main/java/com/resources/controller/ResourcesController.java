@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 import com.resources.model.Story;
 
 import com.resources.domain.CreateStoryResponse;
@@ -24,7 +23,6 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @Slf4j
 public class ResourcesController {
-	RestTemplate restTemplate;
 	
 	@Autowired
 	private ResourcesService resourcesService;
