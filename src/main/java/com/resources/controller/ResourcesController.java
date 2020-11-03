@@ -9,6 +9,6 @@ public class ResourcesController {
 
 	@GetMapping("get")
 	public String getting(){
-	return ("Hello at-resources-api"); 
+	return ("Hello at-resources-api Kevin's branch");
 	}
 }
