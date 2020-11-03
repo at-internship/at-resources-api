@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import com.resources.model.Story;
 
-@Repository
-public interface RepositoryApplication extends MongoRepository<Story, String> {
+@Repository 
+public interface StoryRepository extends MongoRepository<Story,String>{
+	
 	List<Story> findAll();
+
 }
