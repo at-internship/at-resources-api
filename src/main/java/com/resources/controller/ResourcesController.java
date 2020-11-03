@@ -19,7 +19,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.web.client.RestTemplate;
 import com.resources.domain.CreateStoryRequest;
 
-@RequestMapping(value = "/at-resources-api/api/v1/story")
+@RequestMapping(value = "/api/v1")
 @RestController
 public class ResourcesController {
 	RestTemplate restTemplate;
@@ -28,13 +28,13 @@ public class ResourcesController {
 	private ResourcesService resourcesService;
 
 
-	@GetMapping(value="/get", produces="application/json")
+	@GetMapping(value="/story", produces="application/json")
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<Story> getAllStories(){
 		return resourcesService.getStories();
 	}
 
-	@PostMapping(value = "/post")
+	@PostMapping(value = "/story")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<CreateStoryResponse> postStories(
 			@ApiParam(value = "Post story request", required = true) @RequestBody Story request) {
@@ -42,7 +42,7 @@ public class ResourcesController {
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 
-	@PutMapping (value = "/put/{id}", produces = "application/json")
+	@PutMapping (value = "/story/{id}", produces = "application/json")
 	@ResponseStatus (value = HttpStatus.OK )
 	public Story updateStory(@RequestBody CreateStoryRequest request, @PathVariable String id) throws Exception {
 		Story resultStory = new Story();
