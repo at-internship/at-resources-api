@@ -28,7 +28,7 @@ public class ResourcesServiceImpl implements ResourcesService {
 		log.info("Story saved with id: {}", response.getId());
 		return response;
 	}
-	
+
 	@Override
 	public List<Story> getStories() {
 		
@@ -36,5 +36,4 @@ public class ResourcesServiceImpl implements ResourcesService {
 		log.info("Consulted sucessfully on mongoDB");
 		return response;
 	}
-
 }
