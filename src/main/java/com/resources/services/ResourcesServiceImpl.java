@@ -21,15 +21,11 @@ public class ResourcesServiceImpl implements ResourcesService {
     private StoryRepository storyRepository;
 
     @Override
-    public CreateStoryResponse createStory(Story storyDTO) {
-        com.resources.domain.Story story = new com.resources.domain.Story();
-
-        story.setPriority(storyDTO.getPriority().getValue());
+    public CreateStoryResponse createStory(Story story) {
         CreateStoryResponse response = new CreateStoryResponse();
         story.setSprint_id(new ObjectId());
         story.setUser_id(new ObjectId());
-		System.out.println(storyDTO.getPriority().getValue());
-        //response.setId(storyRepository.save(story).get_id());
+        response.setId(storyRepository.save(story).get_id());
         log.info("Story saved with id: {}", response.getId());
         return response;
     }
