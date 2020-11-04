@@ -7,9 +7,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.Setter;
 import org.bson.types.ObjectId;
 
 @Data
+@Getter @Setter
 public class Story {
 
 	private ObjectId id;

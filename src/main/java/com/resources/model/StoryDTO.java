@@ -18,5 +18,5 @@ public class StoryDTO {
     private String start_date;
     private String due_date;
     private String create_date;
-    private Integer status;
+    private String status;
 }
