@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.resources.domain.CreateStoryResponse;
-import com.resources.domain.Story;
-import com.resources.dto.StoryDTO;
+import com.resources.model.Story;
 import com.resources.repository.StoryRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,8 +21,8 @@ public class ResourcesServiceImpl implements ResourcesService {
     private StoryRepository storyRepository;
 
     @Override
-    public CreateStoryResponse createStory(StoryDTO storyDTO) {
-        Story story = new Story();
+    public CreateStoryResponse createStory(Story storyDTO) {
+        com.resources.domain.Story story = new com.resources.domain.Story();
 
         story.setPriority(storyDTO.getPriority().getValue());
         CreateStoryResponse response = new CreateStoryResponse();
@@ -36,13 +35,13 @@ public class ResourcesServiceImpl implements ResourcesService {
     }
 
     @Override
-    public List<StoryDTO> getStories() {
+    public List<Story> getStories() {
 
-        List<Story> storiesDB = storyRepository.findAll();
-        List<StoryDTO> response = new ArrayList<>();
-        for(Story storyDB : storiesDB ){
-            StoryDTO aux = new StoryDTO();
-            aux.setAceptance_criteria(storyDB.getAceptance_criteria());
+        List<com.resources.domain.Story> storiesDB = storyRepository.findAll();
+        List<Story> response = new ArrayList<>();
+        for(com.resources.domain.Story storyDB : storiesDB ){
+            Story aux = new Story();
+            aux.setAcceptance_criteria(storyDB.getAceptance_criteria());
             aux.setDescription(storyDB.getDescription());
             aux.setCreate_date(storyDB.getCreate_date());
             aux.setDue_date(storyDB.getDue_date());
@@ -53,11 +52,11 @@ public class ResourcesServiceImpl implements ResourcesService {
             aux.setStatus(storyDB.getStatus());
             aux.setStory_points(storyDB.getStory_points());
             aux.setUser_id(storyDB.getUser_id());
-            aux.setPriority(StoryDTO.Priority.valueOf(storyDB.getPriority()));
+            aux.setPriority(Story.Priority.valueOf(storyDB.getPriority()));
             response.add(aux);
         }
 
-        System.out.println(StoryDTO.Priority.valueOf(1));
+        System.out.println(Story.Priority.valueOf(1));
         log.info("Consulted sucessfully on mongoDB");
         return response;
     }

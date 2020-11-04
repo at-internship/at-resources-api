@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.resources.domain.CreateStoryResponse;
-import com.resources.dto.StoryDTO;
+import com.resources.model.Story;
 import com.resources.services.ResourcesService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ public class ResourcesController {
 
 	@GetMapping(value="/story", produces="application/json")
 	@ResponseStatus(value = HttpStatus.OK)
-	public List<StoryDTO> getAllStories(){
+	public List<Story> getAllStories(){
 		log.info("info log");
 		log.warn("warn log ");
 		log.error("error log");
@@ -40,7 +40,7 @@ public class ResourcesController {
 	@PostMapping(value = "/story")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<CreateStoryResponse> postStories(
-			@ApiParam(value = "Post story request", required = true) @RequestBody StoryDTO request) {
+			@ApiParam(value = "Post story request", required = true) @RequestBody Story request) {
 		CreateStoryResponse response = resourcesService.createStory(request);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}

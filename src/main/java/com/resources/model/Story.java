@@ -1,4 +1,4 @@
-package com.resources.dto;
+package com.resources.model;
 
 import lombok.Data;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import java.util.Map;
 import org.bson.types.ObjectId;
 
 @Data
-public class StoryDTO{
+public class Story {
 
 	private ObjectId id;
 	private ObjectId sprint_id;
@@ -18,7 +18,7 @@ public class StoryDTO{
     private Priority priority;
     private String name;
     private String description;
-    private String aceptance_criteria;
+    private String acceptance_criteria;
     private Integer story_points;
     private Integer progress;
     private Date start_date;
