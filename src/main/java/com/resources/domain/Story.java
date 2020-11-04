@@ -17,16 +17,16 @@ public class Story {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private ObjectId id;
-	private ObjectId sprint_id;
-    private ObjectId user_id;
+	private ObjectId sprintId;
+    private ObjectId userId;
     private Integer priority;
     private String name;
     private String description;
-    private String aceptance_criteria;
-    private Integer story_points;
+    private String aceptanceCriteria;
+    private Integer storyPoints;
     private Integer progress;
-    private Date start_date;
-    private Date due_date;
-    private Date create_date;
+    private Date startDate;
+    private Date dueDate;
+    private Date createDate;
     private Integer status;
 }

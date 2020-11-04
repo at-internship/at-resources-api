@@ -6,24 +6,23 @@ import lombok.Getter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.bson.types.ObjectId;
 
 @Data
 public class StoryDTO{
 
-	private ObjectId id;
-	private ObjectId sprint_id;
-    private ObjectId user_id;
+	private String id;
+	private String sprintId;
+    private String userId;
     private Priority priority;
     private String name;
     private String description;
-    private String aceptance_criteria;
-    private Integer story_points;
+    private String acceptanceCriteria;
+    private Integer storyPoints;
     private Integer progress;
-    private Date start_date;
-    private Date due_date;
-    private Date create_date;
+    private Date startDate;
+    private Date dueDate;
+    private Date createDate;
     private Integer status;
     
     public enum Priority {
@@ -31,18 +30,14 @@ public class StoryDTO{
         @Getter
         private int value;
         private static Map<Integer, Priority> map = new HashMap<>();
-
         Priority(int value){
             this.value = value;
-            System.out.println("Name coming from enum + " + name());
         }
-
         static {
             for (Priority priority : Priority.values()) map.put(priority.value, priority);
         }
-
-        public static Priority valueOf(int value){
+     public static Priority valueOf(int value){
         	return map.get(value);
 		}
-    }
-}
+    }//END ENUM
+}//END CLASS
