@@ -25,7 +25,7 @@ public class ResourcesServiceImpl implements ResourcesService {
         CreateStoryResponse response = new CreateStoryResponse();
         story.setSprint_id(new ObjectId());
         story.setUser_id(new ObjectId());
-        response.setId(storyRepository.save(story).getId());
+        response.setId(storyRepository.save(story).getId().toString());
         log.info("Story saved with id: {}", response.getId());
         return response;
     }
@@ -33,11 +33,11 @@ public class ResourcesServiceImpl implements ResourcesService {
     @Override
     public List<Story> getStories() {
 
-        List<com.resources.domain.Story> storiesDB = storyRepository.findAll();
+        List<com.resources.model.Story> storiesDB = storyRepository.findAll();
         List<Story> response = new ArrayList<>();
-        for(com.resources.domain.Story storyDB : storiesDB ){
+        for(com.resources.model.Story storyDB : storiesDB ){
             Story aux = new Story();
-            aux.setAcceptance_criteria(storyDB.getAceptance_criteria());
+            aux.setAcceptance_criteria(storyDB.getAcceptance_criteria());
             aux.setDescription(storyDB.getDescription());
             aux.setCreate_date(storyDB.getCreate_date());
             aux.setDue_date(storyDB.getDue_date());
@@ -48,7 +48,7 @@ public class ResourcesServiceImpl implements ResourcesService {
             aux.setStatus(storyDB.getStatus());
             aux.setStory_points(storyDB.getStory_points());
             aux.setUser_id(storyDB.getUser_id());
-            aux.setPriority(Story.Priority.valueOf(storyDB.getPriority()));
+            aux.setPriority(storyDB.getPriority());
             response.add(aux);
         }
 
