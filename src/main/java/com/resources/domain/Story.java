@@ -22,7 +22,7 @@ public class Story {
     private Integer priority;
     private String name;
     private String description;
-    private String aceptanceCriteria;
+    private String acceptanceCriteria;
     private Integer storyPoints;
     private Integer progress;
     private Date startDate;
