@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.resources.configuration.OrikaConfiguration;
-import com.resources.model.StoryDTO;
-import org.bson.types.ObjectId;
+import com.resources.domain.StoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

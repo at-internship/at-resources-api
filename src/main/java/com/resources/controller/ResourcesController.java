@@ -2,7 +2,7 @@ package com.resources.controller;
 
 import java.util.List;
 
-import com.resources.model.StoryDTO;
+import com.resources.domain.StoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
