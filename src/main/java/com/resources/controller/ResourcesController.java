@@ -2,6 +2,7 @@ package com.resources.controller;
 
 import java.util.List;
 
+import com.resources.model.StoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,7 @@ public class ResourcesController {
 	@PostMapping(value = "/story")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<CreateStoryResponse> postStories(
-			@ApiParam(value = "Post story request", required = true) @RequestBody Story request) {
+			@ApiParam(value = "Post story request", required = true) @RequestBody StoryDTO request) {
 		CreateStoryResponse response = resourcesService.createStory(request);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}

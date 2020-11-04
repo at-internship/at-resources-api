@@ -3,6 +3,8 @@ package com.resources.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.resources.configuration.OrikaConfiguration;
+import com.resources.model.StoryDTO;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +21,19 @@ public class ResourcesServiceImpl implements ResourcesService {
 
     @Autowired
     private StoryRepository storyRepository;
+    private OrikaConfiguration orikaConfiguration;
 
-    @Override
-    public CreateStoryResponse createStory(Story story) {
+    @Autowired
+    public ResourcesServiceImpl(StoryRepository storyRepository, OrikaConfiguration orikaConfiguration) {
+        this.storyRepository = storyRepository;
+        this.orikaConfiguration = orikaConfiguration;
+    }
+
+    public CreateStoryResponse createStory(StoryDTO storyDTO) {
         CreateStoryResponse response = new CreateStoryResponse();
-        story.setSprint_id(new ObjectId());
-        story.setUser_id(new ObjectId());
+        storyDTO.setSprint_id("");
+        storyDTO.setUser_id("");
+        Story story = orikaConfiguration.map(storyDTO, Story.class);
         response.setId(storyRepository.save(story).getId().toString());
         log.info("Story saved with id: {}", response.getId());
         return response;

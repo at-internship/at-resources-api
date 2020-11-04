@@ -1,9 +1,12 @@
 package com.resources.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.bson.types.ObjectId;
 
 import java.util.Date;
 
+@Getter @Setter
 public class StoryDTO {
 
     private String id;
