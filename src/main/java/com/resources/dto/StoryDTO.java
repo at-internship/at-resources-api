@@ -11,7 +11,7 @@ import java.util.Map;
 public class StoryDTO{
 
 	private String id;
-    private String sprintId;
+	private String sprintId;
     private String userId;
     private Priority priority;
     private String name;
