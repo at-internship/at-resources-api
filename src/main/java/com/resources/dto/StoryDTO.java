@@ -7,31 +7,21 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 @Data
-@Document(collection="stories")
 public class StoryDTO{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private ObjectId id;
-	private ObjectId sprint_id;
-    private ObjectId user_id;
+	private String id;
+    private String sprintId;
+    private String userId;
     private Priority priority;
     private String name;
     private String description;
-    private String aceptance_criteria;
-    private Integer story_points;
+    private String acceptanceCriteria;
+    private Integer storyPoints;
     private Integer progress;
-    private Date start_date;
-    private Date due_date;
-    private Date create_date;
+    private Date startDate;
+    private Date dueDate;
+    private Date createDate;
     private Integer status;
     
     public enum Priority {
@@ -42,7 +32,6 @@ public class StoryDTO{
 
         Priority(int value){
             this.value = value;
-            System.out.println("Name coming from enum + " + name());
         }
 
         static {
