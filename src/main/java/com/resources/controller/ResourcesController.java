@@ -5,50 +5,54 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.resources.model.Story;
-import com.resources.model.Story_id;
-import com.resources.services.ServiceApplication;
+import com.resources.domain.CreateStoryResponse;
+import com.resources.dto.StoryDTO;
+import com.resources.services.ResourcesService;
 
+import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
+
+@RequestMapping(value = "/api/v1")
 @Configuration
 @RestController
+@Slf4j
 public class ResourcesController {
 	
 	@Autowired
-	private ServiceApplication serviceApplication;
-
-	@GetMapping(value="/api/v1/story/hello", produces = "application/json")
-	@ResponseStatus(value = HttpStatus.OK)
-	public String getting(){
-	return ("Hello at-resources-api"); 
-	}
+	private ResourcesService resourcesService;
 	
-	@GetMapping(value="/api/v1/story", produces = "application/json")
+	@GetMapping(value="/story", produces="application/json")
 	@ResponseStatus(value = HttpStatus.OK)
-	public List<Story> getAllStories(){
-		return serviceApplication.getStories();
-	}
-	
-	@PostMapping(value = "/api/v1/story", produces = "application/json")
-	@ResponseStatus(value = HttpStatus.CREATED)
-	public Story_id createUser(@RequestBody Story story) {
-		Story_id userId =  new Story_id();
-		userId = serviceApplication.createStory(story);
-		return userId;		 
+	public List<StoryDTO> getAllStories(){
+		log.info("info log");
+		log.warn("warn log ");
+		log.error("error log");
+		log.debug("debug log");
+		return resourcesService.getStories();
 	}
 
-	@DeleteMapping(value="/api/v1/story/{id}", produces = "application/json")
+	@PostMapping(value = "/story")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<CreateStoryResponse> postStories(
+			@ApiParam(value = "Post story request", required = true) @RequestBody StoryDTO request) {
+		CreateStoryResponse response = resourcesService.createStory(request);
+		return new ResponseEntity<>(response, HttpStatus.CREATED);
+	}
+	
+	@DeleteMapping(value="/story/{id}", produces = "application/json")
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void DeleteStory(@PathVariable String id) {
-		serviceApplication.deleteStory(id);
-		//return ("Story {"+id+"} was deleted."); 
+		resourcesService.deleteStory(id);
 	}
 	
 }//End class

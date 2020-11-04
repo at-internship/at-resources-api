@@ -1,4 +1,4 @@
-package com.resources.controller;
+package com.resources.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.MongoDatabaseFactory;

@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.resources.exception.ExceptionResponse;
 import com.resources.exception.NotFoundException;
-import com.resources.model.ApiError;
+import com.resources.domain.ApiError;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
