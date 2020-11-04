@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 
 import com.resources.domain.CreateStoryResponse;
 import com.resources.dto.StoryDTO;
@@ -19,11 +21,11 @@ import com.resources.services.ResourcesService;
 import lombok.extern.slf4j.Slf4j;
 import io.swagger.annotations.ApiParam;
 
-@RequestMapping(value = "/api/v1")
+@RequestMapping(value = "/at-resources-api/api/v1")
 @RestController
 @Slf4j
 public class ResourcesController {
-	
+
 	@Autowired
 	private ResourcesService resourcesService;
 
@@ -44,4 +46,5 @@ public class ResourcesController {
 		CreateStoryResponse response = resourcesService.createStory(request);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
+
 }
