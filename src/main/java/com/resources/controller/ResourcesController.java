@@ -1,4 +1,4 @@
-package com.resources.controller;
+ package com.resources.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @Slf4j
 public class ResourcesController {
-	
+
 	@Autowired
 	private ResourcesService resourcesService;
 
@@ -43,10 +43,11 @@ public class ResourcesController {
 		CreateStoryResponse response = resourcesService.createStory(request);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping (value = "/story/{id}", produces = "application/json")
 	@ResponseStatus (value = HttpStatus.OK )
 	public StoryDTO updateStory(@RequestBody StoryDTO request, @PathVariable String id){
 		return resourcesService.updateStory(request, id);
+
 	}
 }
