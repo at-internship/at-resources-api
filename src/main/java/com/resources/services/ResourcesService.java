@@ -1,9 +1,9 @@
 package com.resources.services;
 
 import com.resources.domain.CreateStoryResponse;
-import com.resources.model.Story;
+import com.resources.model.StoryDTO;
 
 public interface ResourcesService {
 
-	CreateStoryResponse createStory(Story story);
+	CreateStoryResponse createStory(StoryDTO json);
 }

@@ -1,6 +1,7 @@
 package com.resources.services;
 
-import org.bson.types.ObjectId;
+import com.resources.configuration.OrikaConfiguration;
+import com.resources.model.StoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +15,24 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ResourcesServiceImpl implements ResourcesService {
 
-	@Autowired
-	private StoryRepository storyRepository;
+    private StoryRepository storyRepository;
+    private OrikaConfiguration orikaConfiguration;
 
-	@Override
-	public CreateStoryResponse createStory(Story story) {
-		CreateStoryResponse response = new CreateStoryResponse();
-		story.setSprint_id(new ObjectId());
-		story.setUser_id(new ObjectId());
-		response.setId(storyRepository.save(story).get_id());
-		log.info("Story saved with id: {}", response.getId());
-		return response;
-	}
+    @Autowired
+    public ResourcesServiceImpl(StoryRepository storyRepository, OrikaConfiguration orikaConfiguration) {
+        this.storyRepository = storyRepository;
+        this.orikaConfiguration = orikaConfiguration;
+    }
+
+    @Override
+    public CreateStoryResponse createStory(StoryDTO storyDto) {
+        CreateStoryResponse response = new CreateStoryResponse();
+        storyDto.setSprint_id("");
+        storyDto.setUser_id("");
+        Story story = orikaConfiguration.map(storyDto, Story.class);
+        response.setId(storyRepository.save(story).get_id().toString());
+        log.info("Story saved with id: {}", response.getId());
+        return response;
+    }
 
 }
