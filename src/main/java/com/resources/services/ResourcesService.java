@@ -1,16 +1,13 @@
 package com.resources.services;
 
 import java.util.List;
-import com.resources.domain.CreateStoryRequest;
 import com.resources.domain.CreateStoryResponse;
-import com.resources.model.Story;
-import javassist.NotFoundException;
+import com.resources.dto.StoryDTO;
+
 
 public interface ResourcesService {
 
-	CreateStoryResponse createStory(Story story);
-	
-	public List<Story> getStories();
-	
-	Story updateStory(CreateStoryRequest request, String id) throws NotFoundException;
+	CreateStoryResponse createStory(StoryDTO story);
+	public List<StoryDTO> getStories();
+	StoryDTO updateStory(StoryDTO request, String id);
 }
