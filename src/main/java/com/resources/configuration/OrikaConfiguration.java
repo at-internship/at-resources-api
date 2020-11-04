@@ -1,7 +1,7 @@
 package com.resources.configuration;
 
+import com.resources.dto.StoryDTO;
 import com.resources.model.Story;
-import com.resources.model.StoryDTO;
 import lombok.SneakyThrows;
 import ma.glasnost.orika.CustomConverter;
 import ma.glasnost.orika.converter.BidirectionalConverter;
