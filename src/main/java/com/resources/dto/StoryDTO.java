@@ -6,6 +6,7 @@ import lombok.Getter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import org.bson.types.ObjectId;
 
 @Data
 public class StoryDTO{
@@ -29,17 +30,14 @@ public class StoryDTO{
         @Getter
         private int value;
         private static Map<Integer, Priority> map = new HashMap<>();
-
         Priority(int value){
             this.value = value;
         }
-
         static {
             for (Priority priority : Priority.values()) map.put(priority.value, priority);
         }
-
-        public static Priority valueOf(int value){
+     public static Priority valueOf(int value){
         	return map.get(value);
 		}
-    }
-}
+    }//END ENUM
+}//END CLASS

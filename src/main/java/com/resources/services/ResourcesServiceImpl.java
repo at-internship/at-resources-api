@@ -7,10 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import com.resources.AtResourcesApi2Application;
 import com.resources.domain.CreateStoryResponse;
 import com.resources.domain.Story;
 import com.resources.dto.StoryDTO;
+import com.resources.errorhandling.HttpExceptionMessage;
+import com.resources.errorhandling.PathErrorMessage;
+import com.resources.exception.NotFoundException;
 import com.resources.repository.StoryRepository;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -19,7 +25,7 @@ public class ResourcesServiceImpl implements ResourcesService {
 
 	@Autowired
 	private StoryRepository storyRepository;
-
+	
 	@Override
 	public CreateStoryResponse createStory(StoryDTO storyDTO) {
 		Story story = new Story();
@@ -42,8 +48,8 @@ public class ResourcesServiceImpl implements ResourcesService {
 		response.setId(storyRepository.save(story).getId().toString());
 		log.info("Story saved with id: {}", response.getId());
 		return response;
-	}
-
+	}//END createStory
+	
 	@Override
 	public List<StoryDTO> getStories() {
 
@@ -67,13 +73,12 @@ public class ResourcesServiceImpl implements ResourcesService {
 			aux.setStatus(storyDB.getStatus());
 			aux.setPriority(StoryDTO.Priority.valueOf(storyDB.getPriority()));
 			response.add(aux);
-
 		}
 		log.info("Consulted sucessfully on mongoDB");
 		return response;
-	}
-
-	@Override
+	}//END getStories
+  
+  @Override
 	public StoryDTO updateStory(StoryDTO storyDTO, String id) {
 		Story story = new Story();
 		if (storyRepository.existsById(id)) {
@@ -96,7 +101,17 @@ public class ResourcesServiceImpl implements ResourcesService {
 			storyDTO.setUserId(story.getUserId().toString());
 			return storyDTO;
 		} else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "id not found", new Exception());
+      throw new NotFoundException(HttpExceptionMessage.IDNOTFOUND, PathErrorMessage.pathApiDelete,HttpStatus.NOT_FOUND);
 		}
-	}
-}
+	}//END updateStory
+	
+	@Override
+	public void deleteStory(String id) {
+		if (storyRepository.existsById(id)) {
+			storyRepository.deleteById(id);
+		} else {
+			throw new NotFoundException(HttpExceptionMessage.IDNOTFOUND, PathErrorMessage.pathApiDelete,HttpStatus.NOT_FOUND);
+		}
+	}//End deleteStory
+
+}// End class

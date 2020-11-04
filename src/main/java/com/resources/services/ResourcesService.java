@@ -1,14 +1,12 @@
 package com.resources.services;
 
-import java.util.List;
 import com.resources.domain.CreateStoryResponse;
 import com.resources.dto.StoryDTO;
+import java.util.List;
 
 public interface ResourcesService {
-
 	CreateStoryResponse createStory(StoryDTO story);
-
 	public List<StoryDTO> getStories();
-
-	StoryDTO updateStory(StoryDTO request, String id);
+	public void deleteStory(String id);
+  StoryDTO updateStory(StoryDTO request, String id);
 }

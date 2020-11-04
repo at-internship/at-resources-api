@@ -12,8 +12,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Data;
 
 @Data
-@Document(collection = "stories")
-public class Story{
+@Document(collection = "stories") 
+public class Story {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private ObjectId id;
@@ -22,7 +22,7 @@ public class Story{
     private Integer priority;
     private String name;
     private String description;
-    private String acceptanceCriteria;
+    private String aceptanceCriteria;
     private Integer storyPoints;
     private Integer progress;
     private Date startDate;
