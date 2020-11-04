@@ -1,5 +1,7 @@
 package com.resources.domain;
 
+import org.bson.types.ObjectId;
+
 import lombok.Data;
 
 @Data
