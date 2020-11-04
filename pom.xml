@@ -48,6 +48,11 @@
 			<artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>ma.glasnost.orika</groupId>
+			<artifactId>orika-core</artifactId>
+			<version>1.4.6</version>
+		</dependency>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.18.12</version>
