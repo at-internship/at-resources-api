@@ -1,4 +1,4 @@
-package com.resources.domain;
+package com.resources.model;
 
 import java.util.Date;
 

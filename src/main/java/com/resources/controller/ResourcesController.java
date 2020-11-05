@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import com.resources.domain.CreateStoryResponse;
-import com.resources.dto.StoryDTO;
+import com.resources.domain.StoryRequestDTO;
 import com.resources.services.ResourcesService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,30 +29,30 @@ import io.swagger.annotations.ApiParam;
 @Slf4j
 public class ResourcesController {
 	
-	@Autowired
-	private ResourcesService resourcesService;
-	
+	private final ResourcesService resourcesService;
+
+	public ResourcesController(ResourcesService resourcesService) {
+		this.resourcesService = resourcesService;
+	}
+
 	@GetMapping(value="/story", produces="application/json")
 	@ResponseStatus(value = HttpStatus.OK)
-	public List<StoryDTO> getAllStories(){
-		log.info("info log");
-		log.warn("warn log ");
-		log.error("error log");
-		log.debug("debug log");
+	public List<StoryRequestDTO> getAllStories(){
+		log.info("Calling Get Operation");
 		return resourcesService.getStories();
 	}//END GET
    
 	@PostMapping(value = "/story")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<CreateStoryResponse> postStories(
-			@ApiParam(value = "Post story request", required = true) @RequestBody StoryDTO request) {
+			@ApiParam(value = "Post story request", required = true) @RequestBody StoryRequestDTO request) {
 		CreateStoryResponse response = resourcesService.createStory(request);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}//END POST
   
   @PutMapping(value = "/story/{id}", produces = "application/json")
 	@ResponseStatus(value = HttpStatus.OK)
-	public StoryDTO updateStory(@RequestBody StoryDTO request, @PathVariable String id) {
+	public StoryRequestDTO updateStory(@RequestBody StoryRequestDTO request, @PathVariable String id) {
 		return resourcesService.updateStory(request, id);
 	}//END PUT
   

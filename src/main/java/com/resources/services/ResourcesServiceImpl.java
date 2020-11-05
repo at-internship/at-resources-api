@@ -2,16 +2,15 @@ package com.resources.services;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.resources.mapper.OrikaMapper;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import com.resources.AtResourcesApi2Application;
 import com.resources.domain.CreateStoryResponse;
-import com.resources.domain.Story;
-import com.resources.dto.StoryDTO;
+import com.resources.model.Story;
+import com.resources.domain.StoryRequestDTO;
 import com.resources.errorhandling.HttpExceptionMessage;
 import com.resources.errorhandling.PathErrorMessage;
 import com.resources.exception.NotFoundException;
@@ -23,27 +22,34 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ResourcesServiceImpl implements ResourcesService {
 
-	@Autowired
-	private StoryRepository storyRepository;
-	
+	private final StoryRepository storyRepository;
+	private final OrikaMapper mapper;
+
+	public ResourcesServiceImpl(StoryRepository storyRepository, OrikaMapper orikaMapper) {
+		this.storyRepository = storyRepository;
+		this.mapper = orikaMapper;
+	}
+
 	@Override
-	public CreateStoryResponse createStory(StoryDTO storyDTO) {
+	public CreateStoryResponse createStory(StoryRequestDTO storyRequestDTO) {
 		Story story = new Story();
-		story.setPriority(storyDTO.getPriority().getValue());
+//		story.setPriority(storyDTO.getPriority().getValue());
 		CreateStoryResponse response = new CreateStoryResponse();
+
+		story = mapper.map(storyRequestDTO, Story.class);
 
 		story.setSprintId(new ObjectId());
 		story.setUserId(new ObjectId());
-		story.setPriority(storyDTO.getPriority().getValue());
-		story.setName(storyDTO.getName());
-		story.setDescription(storyDTO.getDescription());
-		story.setAcceptanceCriteria(storyDTO.getAcceptanceCriteria());
-		story.setStoryPoints(storyDTO.getStoryPoints());
-		story.setProgress(storyDTO.getProgress());
-		story.setStartDate(storyDTO.getStartDate());
-		story.setDueDate(storyDTO.getDueDate());
-		story.setCreateDate(storyDTO.getCreateDate());
-		story.setStatus(storyDTO.getStatus());
+//		story.setPriority(storyDTO.getPriority().getValue());
+		story.setName(storyRequestDTO.getName());
+		story.setDescription(storyRequestDTO.getDescription());
+		story.setAcceptanceCriteria(storyRequestDTO.getAcceptanceCriteria());
+		story.setStoryPoints(storyRequestDTO.getStoryPoints());
+		story.setProgress(storyRequestDTO.getProgress());
+		story.setStartDate(storyRequestDTO.getStartDate());
+		story.setDueDate(storyRequestDTO.getDueDate());
+		story.setCreateDate(storyRequestDTO.getCreateDate());
+		story.setStatus(storyRequestDTO.getStatus());
 
 		response.setId(storyRepository.save(story).getId().toString());
 		log.info("Story saved with id: {}", response.getId());
@@ -51,17 +57,17 @@ public class ResourcesServiceImpl implements ResourcesService {
 	}//END createStory
 	
 	@Override
-	public List<StoryDTO> getStories() {
+	public List<StoryRequestDTO> getStories() {
 
 		List<Story> storiesDB = storyRepository.findAll();
-		List<StoryDTO> response = new ArrayList<>();
+		List<StoryRequestDTO> response = new ArrayList<>();
 		for (Story storyDB : storiesDB) {
-			StoryDTO aux = new StoryDTO();
+			StoryRequestDTO aux = new StoryRequestDTO();
 
 			aux.setId(storyDB.getId().toString());
 			aux.setSprintId(storyDB.getSprintId() != null ? storyDB.getSprintId().toString() : "");
 			aux.setUserId(storyDB.getUserId() != null ? storyDB.getUserId().toString() : "");
-			aux.setPriority(StoryDTO.Priority.valueOf(storyDB.getPriority()));
+			aux.setPriority(StoryRequestDTO.Priority.valueOf(storyDB.getPriority()));
 			aux.setName(storyDB.getName());
 			aux.setDescription(storyDB.getDescription());
 			aux.setAcceptanceCriteria(storyDB.getAcceptanceCriteria());
@@ -71,7 +77,7 @@ public class ResourcesServiceImpl implements ResourcesService {
 			aux.setDueDate(storyDB.getDueDate());
 			aux.setCreateDate(storyDB.getCreateDate());
 			aux.setStatus(storyDB.getStatus());
-			aux.setPriority(StoryDTO.Priority.valueOf(storyDB.getPriority()));
+			aux.setPriority(StoryRequestDTO.Priority.valueOf(storyDB.getPriority()));
 			response.add(aux);
 		}
 		log.info("Consulted sucessfully on mongoDB");
@@ -79,27 +85,27 @@ public class ResourcesServiceImpl implements ResourcesService {
 	}//END getStories
   
   @Override
-	public StoryDTO updateStory(StoryDTO storyDTO, String id) {
+	public StoryRequestDTO updateStory(StoryRequestDTO storyRequestDTO, String id) {
 		Story story = new Story();
 		if (storyRepository.existsById(id)) {
 			story.setId(new ObjectId(id));
 			story.setSprintId(new ObjectId());
 			story.setUserId(new ObjectId());
-			story.setPriority(storyDTO.getPriority().getValue());
-			story.setName(storyDTO.getName());
-			story.setDescription(storyDTO.getDescription());
-			story.setAcceptanceCriteria(storyDTO.getAcceptanceCriteria());
-			story.setStoryPoints(storyDTO.getStoryPoints());
-			story.setProgress(storyDTO.getProgress());
-			story.setStartDate(storyDTO.getStartDate());
-			story.setDueDate(storyDTO.getDueDate());
-			story.setCreateDate(storyDTO.getCreateDate());
-			story.setStatus(storyDTO.getStatus());
+//			story.setPriority(storyDTO.getPriority().getValue());
+			story.setName(storyRequestDTO.getName());
+			story.setDescription(storyRequestDTO.getDescription());
+			story.setAcceptanceCriteria(storyRequestDTO.getAcceptanceCriteria());
+			story.setStoryPoints(storyRequestDTO.getStoryPoints());
+			story.setProgress(storyRequestDTO.getProgress());
+			story.setStartDate(storyRequestDTO.getStartDate());
+			story.setDueDate(storyRequestDTO.getDueDate());
+			story.setCreateDate(storyRequestDTO.getCreateDate());
+			story.setStatus(storyRequestDTO.getStatus());
 			storyRepository.save(story);
-			storyDTO.setId(story.getId().toString());
-			storyDTO.setSprintId(story.getSprintId().toString());
-			storyDTO.setUserId(story.getUserId().toString());
-			return storyDTO;
+			storyRequestDTO.setId(story.getId().toString());
+			storyRequestDTO.setSprintId(story.getSprintId().toString());
+			storyRequestDTO.setUserId(story.getUserId().toString());
+			return storyRequestDTO;
 		} else {
       throw new NotFoundException(HttpExceptionMessage.IDNOTFOUND, PathErrorMessage.pathApiDelete,HttpStatus.NOT_FOUND);
 		}

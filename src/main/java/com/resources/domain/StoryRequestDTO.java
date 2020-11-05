@@ -1,4 +1,4 @@
-package com.resources.dto;
+package com.resources.domain;
 
 import lombok.Data;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import java.util.Map;
 import org.bson.types.ObjectId;
 
 @Data
-public class StoryDTO{
+public class StoryRequestDTO {
 
 	private String id;
 	private String sprintId;
