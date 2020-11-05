@@ -27,12 +27,6 @@ public class OrikaMapper extends ConfigurableMapper {
     public void setMapperFacade(MapperFactory mapperFactory){
         this.mapperFacade = mapperFactory.getMapperFacade();
 
-        ConverterFactory converterFactory = mapperFactory.getConverterFactory();
-        converterFactory.registerConverter(new DateConverter());
-        converterFactory.registerConverter( "priority", new PriorityConverter());
-        converterFactory.registerConverter("idConverter", new IdConverter());
-
-
         mapperFactory.classMap(Story.class, StoryRequestDTO.class).byDefault().register();
         mapperFactory.classMap(StoryRequestDTO.class, Story.class)
                 .fieldMap("priority", "priority").converter("priority").add()
@@ -41,7 +35,7 @@ public class OrikaMapper extends ConfigurableMapper {
                 .byDefault().register();
     }
 
-    public class DateConverter extends BidirectionalConverter<Date,String> {
+    public static class DateConverter extends BidirectionalConverter<Date,String> {
 
         @Override
         public String convertTo(Date date, Type<String> type, MappingContext mappingContext) {
@@ -56,7 +50,7 @@ public class OrikaMapper extends ConfigurableMapper {
     }
 
 
-    public class PriorityConverter extends CustomConverter<String, Integer> {
+    public static class PriorityConverter extends CustomConverter<String, Integer> {
 
         @Override
         public Integer convert(String sourceString, Type<? extends Integer> type, MappingContext mappingContext) {
@@ -73,7 +67,7 @@ public class OrikaMapper extends ConfigurableMapper {
         }
     }
 
-    public class IdConverter extends CustomConverter<String, ObjectId> {
+    public static class IdConverter extends CustomConverter<String, ObjectId> {
 
         @Override
         public ObjectId convert(String s, Type<? extends ObjectId> type, MappingContext mappingContext) {
