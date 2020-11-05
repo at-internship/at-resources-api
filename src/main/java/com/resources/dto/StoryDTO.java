@@ -2,27 +2,31 @@ package com.resources.dto;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@Data
+@Getter
+@Setter
+@ToString
 public class StoryDTO{
 
 	private String id;
-	private String sprint_id;
-    private String user_id;
+	private String sprintId;
+    private String userId;
 //    private Priority priority;
     private String priority;
     private String name;
     private String description;
-    private String acceptance_criteria;
-    private String story_points;
+    private String acceptanceCriteria;
+    private String storyPoints;
     private String progress;
-    private String start_date;
-    private String due_date;
-    private String create_date;
+    private String startDate;
+    private String dueDate;
+    private String createDate;
     private String status;
     
 //    public enum Priority {
