@@ -1,4 +1,4 @@
-package com.resources.mapper;
+/*package com.resources.mapper;
 
 import com.resources.model.Story;
 import com.resources.domain.StoryRequestDTO;
@@ -75,4 +75,4 @@ public class OrikaMapper extends ConfigurableMapper {
         }
     }
 
-}
+}*/

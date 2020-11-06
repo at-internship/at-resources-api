@@ -3,7 +3,8 @@ package com.resources.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.resources.mapper.OrikaMapper;
+//import com.resources.mapper.OrikaMapper;
+import com.resources.configuration.OrikaConfiguration;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,21 +24,24 @@ import lombok.extern.slf4j.Slf4j;
 public class ResourcesServiceImpl implements ResourcesService {
 
 	private final StoryRepository storyRepository;
-	private final OrikaMapper mapper;
+	//private final OrikaMapper mapper;
+	private final OrikaConfiguration mapper;
 
-	public ResourcesServiceImpl(StoryRepository storyRepository, OrikaMapper orikaMapper) {
+	//public ResourcesServiceImpl(StoryRepository storyRepository, OrikaMapper orikaMapper) {
+	public ResourcesServiceImpl(StoryRepository storyRepository, OrikaConfiguration orikaConfiguration) {
 		this.storyRepository = storyRepository;
-		this.mapper = orikaMapper;
+		//this.mapper = orikaMapper;
+		this.mapper = orikaConfiguration;
 	}
 
 	@Override
 	public CreateStoryResponse createStory(StoryRequestDTO storyRequestDTO) {
-		Story story = new Story();
+		Story story = mapper.map(storyRequestDTO, Story.class);
 //		story.setPriority(storyDTO.getPriority().getValue());
 		CreateStoryResponse response = new CreateStoryResponse();
 
-		story = mapper.map(storyRequestDTO, Story.class);
-
+		//story = mapper.map(storyRequestDTO, Story.class);
+/*
 		story.setSprintId(new ObjectId());
 		story.setUserId(new ObjectId());
 //		story.setPriority(storyDTO.getPriority().getValue());
@@ -50,7 +54,7 @@ public class ResourcesServiceImpl implements ResourcesService {
 		story.setDueDate(storyRequestDTO.getDueDate());
 		story.setCreateDate(storyRequestDTO.getCreateDate());
 		story.setStatus(storyRequestDTO.getStatus());
-
+*/
 		response.setId(storyRepository.save(story).getId().toString());
 		log.info("Story saved with id: {}", response.getId());
 		return response;
@@ -60,6 +64,12 @@ public class ResourcesServiceImpl implements ResourcesService {
 	public List<StoryRequestDTO> getStories() {
 
 		List<Story> storiesDB = storyRepository.findAll();
+		List<StoryRequestDTO> response = new ArrayList<>();
+		for (Story storyDB : storiesDB) {
+			StoryRequestDTO aux = mapper.map(storyDB,StoryRequestDTO.class);
+			response.add(aux);
+		}
+		/*
 		List<StoryRequestDTO> response = new ArrayList<>();
 		for (Story storyDB : storiesDB) {
 			StoryRequestDTO aux = new StoryRequestDTO();
@@ -79,15 +89,15 @@ public class ResourcesServiceImpl implements ResourcesService {
 			aux.setStatus(storyDB.getStatus());
 			aux.setPriority(StoryRequestDTO.Priority.valueOf(storyDB.getPriority()));
 			response.add(aux);
-		}
-		log.info("Consulted sucessfully on mongoDB");
+		}*/
+		log.info("Consulted successfully on mongoDB");
 		return response;
 	}//END getStories
   
   @Override
 	public StoryRequestDTO updateStory(StoryRequestDTO storyRequestDTO, String id) {
-		Story story = new Story();
-		if (storyRepository.existsById(id)) {
+		Story story = mapper.map(storyRequestDTO, Story.class);
+		if (storyRepository.existsById(id)) {/*
 			story.setId(new ObjectId(id));
 			story.setSprintId(new ObjectId());
 			story.setUserId(new ObjectId());
@@ -100,7 +110,7 @@ public class ResourcesServiceImpl implements ResourcesService {
 			story.setStartDate(storyRequestDTO.getStartDate());
 			story.setDueDate(storyRequestDTO.getDueDate());
 			story.setCreateDate(storyRequestDTO.getCreateDate());
-			story.setStatus(storyRequestDTO.getStatus());
+			story.setStatus(storyRequestDTO.getStatus());*/
 			storyRepository.save(story);
 			storyRequestDTO.setId(story.getId().toString());
 			storyRequestDTO.setSprintId(story.getSprintId().toString());

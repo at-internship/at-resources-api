@@ -14,15 +14,15 @@ public class StoryRequestDTO {
 	private String id;
 	private String sprintId;
     private String userId;
-    private Priority priority;
+    private String priority;
     private String name;
     private String description;
     private String acceptanceCriteria;
     private Integer storyPoints;
     private Integer progress;
-    private Date startDate;
-    private Date dueDate;
-    private Date createDate;
+    private String startDate;
+    private String dueDate;
+    private String createDate;
     private Integer status;
     
     public enum Priority {
