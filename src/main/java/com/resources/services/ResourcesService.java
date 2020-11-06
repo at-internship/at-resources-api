@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ResourcesService {
 	CreateStoryResponse createStory(StoryRequestDTO story);
-	public List<StoryRequestDTO> getStories();
-	public void deleteStory(String id);
-  StoryRequestDTO updateStory(StoryRequestDTO request, String id);
+	List<StoryRequestDTO> getStories();
+	void deleteStory(String id);
+  	StoryRequestDTO updateStory(StoryRequestDTO request, String id);
 }

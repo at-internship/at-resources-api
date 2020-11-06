@@ -31,13 +31,13 @@ public class OrikaConfiguration extends ConfigurableMapper {
 
         mapperFactory.classMap(Story.class, StoryRequestDTO.class)
                 .fieldMap("priority", "priority").converter("priority").add()
-                .fieldMap("sprintId", "sprintId").converter("idConverter").add()
-                .fieldMap("userId", "userId").converter("idConverter").add()
+                .fieldMap("sprint_id", "sprintId").converter("idConverter").add()
+                .fieldMap("user_id", "userId").converter("idConverter").add()
                 .byDefault().register();
         mapperFactory.classMap(StoryRequestDTO.class, Story.class)
                 .fieldMap("priority", "priority").converter("priority").add()
-                .fieldMap("sprintId", "sprintId").converter("idConverter").add()
-                .fieldMap("userId", "userId").converter("idConverter").add()
+                .fieldMap("sprintId", "sprint_id").converter("idConverter").add()
+                .fieldMap("userId", "user_id").converter("idConverter").add()
                 .byDefault().register();
 
         return mapperFactory;
@@ -60,18 +60,6 @@ public class OrikaConfiguration extends ConfigurableMapper {
 
     public class PriorityConverter extends BidirectionalConverter<String, Integer> {
 
-        public Integer convert(String sourceString, Type<? extends Integer> destinationType) {
-
-            if (sourceString.equalsIgnoreCase("high"))
-                return 1;
-            else if (sourceString.equalsIgnoreCase("medium"))
-                return 2;
-            else if (sourceString.equalsIgnoreCase("low"))
-                return 3;
-            else
-                return 0;
-        }
-
         @Override
         public Integer convertTo(String s, Type<Integer> type, MappingContext mappingContext) {
             return PriorityConstants.valueOf(s.toUpperCase()).getOrd();
@@ -79,22 +67,11 @@ public class OrikaConfiguration extends ConfigurableMapper {
 
         @Override
         public String convertFrom(Integer integer, Type<String> type, MappingContext mappingContext) {
-            if (integer == 1)
-                return "HIGH";
-            else if (integer == 2)
-                return "MEDIUM";
-            else if (integer == 3)
-                return "LOW";
-            else
-                return "UNKNOWN";
+            return PriorityConstants.getPriority(integer);
         }
     }
 
     public class IdConverter extends CustomConverter<String, ObjectId> {
-
-        public ObjectId convert(String sourceString, Type<? extends ObjectId> destinationType) {
-            return new ObjectId();
-        }
 
         @Override
         public ObjectId convert(String s, Type<? extends ObjectId> type, MappingContext mappingContext) {
