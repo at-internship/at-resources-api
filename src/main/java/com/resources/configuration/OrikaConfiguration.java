@@ -81,7 +81,7 @@ public class OrikaConfiguration extends ConfigurableMapper {
 
         @Override
         public String convertFrom(ObjectId objectId, Type<String> type, MappingContext mappingContext) {
-            return objectId.toHexString();
+            return objectId.toString();
         }
     }
 
