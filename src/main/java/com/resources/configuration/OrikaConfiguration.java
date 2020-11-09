@@ -31,6 +31,7 @@ public class OrikaConfiguration extends ConfigurableMapper {
 
         mapperFactory.classMap(Story.class, StoryRequestDTO.class)
                 .fieldMap("priority", "priority").converter("priority").add()
+                .fieldMap("id", "id").converter("idConverter").add()
                 .fieldMap("sprint_id", "sprintId").converter("idConverter").add()
                 .fieldMap("user_id", "userId").converter("idConverter").add()
                 .byDefault().register();
@@ -71,11 +72,16 @@ public class OrikaConfiguration extends ConfigurableMapper {
         }
     }
 
-    public class IdConverter extends CustomConverter<String, ObjectId> {
+    public class IdConverter extends BidirectionalConverter<String, ObjectId> {
 
         @Override
-        public ObjectId convert(String s, Type<? extends ObjectId> type, MappingContext mappingContext) {
+        public ObjectId convertTo(String s, Type<ObjectId> type, MappingContext mappingContext) {
             return new ObjectId();
+        }
+
+        @Override
+        public String convertFrom(ObjectId objectId, Type<String> type, MappingContext mappingContext) {
+            return objectId.toHexString();
         }
     }
 
