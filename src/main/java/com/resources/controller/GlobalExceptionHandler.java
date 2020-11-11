@@ -43,7 +43,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 				new ExceptionResponse(
 						new Date(),
 						e.getStatus(),
-						HttpStatus.BAD_REQUEST,
+						HttpStatus.NOT_FOUND,
 						e.getMessage(),
 						e.getPath());
 		return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.NOT_FOUND);
