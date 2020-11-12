@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.resources.configuration.OrikaConfiguration;
+import com.resources.errorhandling.Validations;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,7 @@ public class ResourcesServiceImpl implements ResourcesService {
 	public CreateStoryResponse createStory(StoryRequestDTO storyRequestDTO) {
 		storyRequestDTO.setSprintId("");
 		storyRequestDTO.setUserId("");
+		Validations.validationPostPut(storyRequestDTO);
 		Story story = mapper.map(storyRequestDTO, Story.class);
 		CreateStoryResponse response = new CreateStoryResponse();
 		response.setId(storyRepository.save(story).getId().toString());
@@ -57,7 +59,9 @@ public class ResourcesServiceImpl implements ResourcesService {
 	public StoryRequestDTO updateStory(StoryRequestDTO storyRequestDTO, String id) {
 		storyRequestDTO.setSprintId("");
 		storyRequestDTO.setUserId("");
+		storyRequestDTO.setId(id);
 		Story story;
+		Validations.validationPostPut(storyRequestDTO);
 		if (storyRepository.existsById(id)) {
 			story = mapper.map(storyRequestDTO, Story.class);
 			storyRepository.save(story);

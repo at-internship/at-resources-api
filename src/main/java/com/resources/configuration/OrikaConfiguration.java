@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
+
 import org.bson.types.ObjectId;
 
 @Component
@@ -34,11 +36,21 @@ public class OrikaConfiguration extends ConfigurableMapper {
                 .fieldMap("id", "id").converter("idConverter").add()
                 .fieldMap("sprint_id", "sprintId").converter("idConverter").add()
                 .fieldMap("user_id", "userId").converter("idConverter").add()
+                .fieldMap("acceptance_criteria", "acceptanceCriteria").add()
+                .fieldMap("story_points", "storyPoints").add()
+                .fieldMap("start_date","startDate").add()
+                .fieldMap("due_date","dueDate").add()
+                .fieldMap("create_date","createDate").add()
                 .byDefault().register();
         mapperFactory.classMap(StoryRequestDTO.class, Story.class)
                 .fieldMap("priority", "priority").converter("priority").add()
                 .fieldMap("sprintId", "sprint_id").converter("idConverter").add()
                 .fieldMap("userId", "user_id").converter("idConverter").add()
+                .fieldMap("acceptanceCriteria", "acceptance_criteria").add()
+                .fieldMap("storyPoints", "story_points").add()
+                .fieldMap("startDate","start_date").add()
+                .fieldMap("dueDate","due_date").add()
+                .fieldMap("createDate","create_date").add()
                 .byDefault().register();
 
         return mapperFactory;
@@ -48,13 +60,13 @@ public class OrikaConfiguration extends ConfigurableMapper {
 
         @Override
         public String convertTo(Date date, Type<String> type, MappingContext mappingContext) {
-            return new SimpleDateFormat("MM-dd-yyyy").format(date);
+            return new SimpleDateFormat("yyyy-MM-dd").format(date);
         }
 
         @SneakyThrows
         @Override
         public Date convertFrom(String s, Type<Date> type, MappingContext mappingContext) {
-            return new SimpleDateFormat("MM-dd-yyyy").parse(s);
+            return new SimpleDateFormat("yyyy-MM-dd").parse(s);
         }
     }
 
