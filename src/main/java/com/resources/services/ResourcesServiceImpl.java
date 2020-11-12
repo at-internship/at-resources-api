@@ -66,7 +66,7 @@ public class ResourcesServiceImpl implements ResourcesService {
 			storyRequestDTO.setUserId(story.getUser_id().toString());
 			return storyRequestDTO;
 		} else {
-      throw new NotFoundException(HttpExceptionMessage.IDNOTFOUND, PathErrorMessage.pathApiDelete,HttpStatus.NOT_FOUND);
+      throw new NotFoundException(String.format(HttpExceptionMessage.IDNOTFOUND,id),PathErrorMessage.pathApiDelete,HttpStatus.NOT_FOUND);
 		}
 	}//END updateStory
 	
@@ -75,7 +75,7 @@ public class ResourcesServiceImpl implements ResourcesService {
 		if (storyRepository.existsById(id)) {
 			storyRepository.deleteById(id);
 		} else {
-			throw new NotFoundException(HttpExceptionMessage.IDNOTFOUND, PathErrorMessage.pathApiDelete,HttpStatus.NOT_FOUND);
+      throw new NotFoundException(String.format(HttpExceptionMessage.IDNOTFOUND,id),PathErrorMessage.pathApiDelete,HttpStatus.NOT_FOUND);
 		}
 	}//End deleteStory
 
