@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.resources.exception.ExceptionResponse;
 import com.resources.exception.NotFoundException;
+import com.resources.exception.BadRequest;
 import com.resources.domain.ApiError;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -48,5 +49,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 						e.getPath());
 		return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.NOT_FOUND);
 	}
-	
+	@ExceptionHandler
+	public final ResponseEntity<ExceptionResponse> handleBadRequestException(BadRequest e) {
+
+		ExceptionResponse exceptionResponse =
+				new ExceptionResponse(
+						new Date(),
+						e.getStatus(),
+						HttpStatus.BAD_REQUEST,
+						e.getMessage(),
+						e.getPath());
+		return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.BAD_REQUEST);
+	}
 }//End class

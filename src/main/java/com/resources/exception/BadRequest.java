@@ -18,7 +18,6 @@ public class BadRequest extends RuntimeException{
 
     public BadRequest(String message, String path,HttpStatus r){
         setError(HttpStatus.BAD_REQUEST);
-        //setMessage(message);
         setMessage(message);
         setPath(path);
         setStatus(r.value());
