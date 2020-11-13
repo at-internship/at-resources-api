@@ -2,7 +2,6 @@ package com.resources.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,10 +16,12 @@ public class BadRequest extends RuntimeException{
     private String message;
     private String path;
 
-    public BadRequest(String message, String path, HttpStatus r){
+    public BadRequest(String message, String path,HttpStatus r){
         setError(HttpStatus.BAD_REQUEST);
+        //setMessage(message);
         setMessage(message);
         setPath(path);
         setStatus(r.value());
     }
+
 }

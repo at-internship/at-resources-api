@@ -2,6 +2,7 @@ package com.resources.errorhandling;
 
 import com.resources.domain.StoryRequestDTO;
 import com.resources.exception.BadRequest;
+import com.resources.exception.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,8 @@ public class Validations {
 
     public static void validationPostPut(StoryRequestDTO requestDTO) {
 
+        if (requestDTO.getPriority() == null || requestDTO.getPriority().isEmpty())
+            throw new BadRequest("The priority field value should not be null or empty", "/story/", HttpStatus.BAD_REQUEST);
         if (!requestDTO.getPriority().equals("High") && !requestDTO.getPriority().equals("Medium") && !requestDTO.getPriority().equals("Low"))
             throw new BadRequest("The priority field only accepts 3 values {High, Medium, Low}", "/story/", HttpStatus.BAD_REQUEST);
         if (requestDTO.getName() == null || requestDTO.getName().isEmpty())
@@ -24,12 +27,20 @@ public class Validations {
             throw new BadRequest("The description field value should not be null or empty", "/story/", HttpStatus.BAD_REQUEST);
         if (requestDTO.getAcceptanceCriteria() == null || requestDTO.getAcceptanceCriteria().isEmpty())
             throw new BadRequest("The acceptanceCriteria field value should not be null or empty", "/story/", HttpStatus.BAD_REQUEST);
+        if (requestDTO.getStoryPoints() == null)
+            throw new BadRequest("The storyPoints field value should not be null or empty", "/story/", HttpStatus.BAD_REQUEST);
         if (requestDTO.getStoryPoints() == 4 || requestDTO.getStoryPoints() == 6 || requestDTO.getStoryPoints() == 7 || requestDTO.getStoryPoints() > 8 || requestDTO.getStoryPoints() < 1)
             throw new BadRequest("The storyPoints field only accepts the following values {1, 2, 3, 5, 8}", "/story/", HttpStatus.BAD_REQUEST);
         if (requestDTO.getProgress() == null)
             requestDTO.setProgress(0);
         if (requestDTO.getProgress() > 100 || requestDTO.getProgress() < 0)
             throw new BadRequest("The progress field they only receive values from 0 to 100", "/story/", HttpStatus.BAD_REQUEST);
+        if (requestDTO.getStartDate() == null || requestDTO.getStartDate().isEmpty())
+            throw new BadRequest("The startDate field value should not be null or empty", "/story/", HttpStatus.BAD_REQUEST);
+        if (requestDTO.getDueDate() == null || requestDTO.getDueDate().isEmpty())
+            throw new BadRequest("The dueDate field value should not be null or empty", "/story/", HttpStatus.BAD_REQUEST);
+        if (requestDTO.getCreateDate() == null || requestDTO.getCreateDate().isEmpty())
+            throw new BadRequest("The createDate field value should not be null or empty", "/story/", HttpStatus.BAD_REQUEST);
 
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault());
