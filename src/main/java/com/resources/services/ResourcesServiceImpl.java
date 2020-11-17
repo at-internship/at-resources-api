@@ -17,6 +17,8 @@ import com.resources.repository.StoryRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
+import static com.resources.errorhandling.Validations.validationPostPut;
+
 @Service
 @Slf4j
 public class ResourcesServiceImpl implements ResourcesService {
@@ -33,13 +35,14 @@ public class ResourcesServiceImpl implements ResourcesService {
 	public CreateStoryResponse createStory(StoryRequestDTO storyRequestDTO) {
 		storyRequestDTO.setSprintId("");
 		storyRequestDTO.setUserId("");
+		validationPostPut(storyRequestDTO);
 		Story story = mapper.map(storyRequestDTO, Story.class);
 		CreateStoryResponse response = new CreateStoryResponse();
 		response.setId(storyRepository.save(story).getId().toString());
 		log.info("Story saved with id: {}", response.getId());
 		return response;
 	}//END createStory
-	
+
 	@Override
 	public List<StoryRequestDTO> getStories() {
 
@@ -57,7 +60,9 @@ public class ResourcesServiceImpl implements ResourcesService {
 	public StoryRequestDTO updateStory(StoryRequestDTO storyRequestDTO, String id) {
 		storyRequestDTO.setSprintId("");
 		storyRequestDTO.setUserId("");
+		storyRequestDTO.setId(id);
 		Story story;
+		validationPostPut(storyRequestDTO);
 		if (storyRepository.existsById(id)) {
 			story = mapper.map(storyRequestDTO, Story.class);
 			storyRepository.save(story);
