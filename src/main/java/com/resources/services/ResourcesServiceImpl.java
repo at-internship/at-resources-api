@@ -2,6 +2,7 @@ package com.resources.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.resources.configuration.OrikaConfiguration;
 import org.springframework.http.HttpStatus;
@@ -58,15 +59,15 @@ public class ResourcesServiceImpl implements ResourcesService {
   
 	@Override
 	public StoryRequestDTO updateStory(StoryRequestDTO storyRequestDTO, String id) {
-		storyRequestDTO.setSprintId("");
-		storyRequestDTO.setUserId("");
 		storyRequestDTO.setId(id);
 		Story story;
 		validationPostPut(storyRequestDTO);
 		if (storyRepository.existsById(id)) {
+			Optional<Story> existStory = storyRepository.findById(id);
 			story = mapper.map(storyRequestDTO, Story.class);
+			story.setSprint_id(existStory.get().getSprint_id());
+			story.setUser_id(existStory.get().getUser_id());
 			storyRepository.save(story);
-			storyRequestDTO.setId(story.getId().toString());
 			storyRequestDTO.setSprintId(story.getSprint_id().toString());
 			storyRequestDTO.setUserId(story.getUser_id().toString());
 			return storyRequestDTO;
