@@ -38,6 +38,10 @@ public class Validations {
         else if (requestDTO.getProgress() > 100 || requestDTO.getProgress() < 0)
             throw new BadRequest("The progress field they only receive values from 0 to 100", PATH_POST_PUT, HttpStatus.BAD_REQUEST);
 
+        if (isNull(requestDTO.getStatus()))
+            throw new BadRequest("The status field value should not be null or empty", PATH_POST_PUT, HttpStatus.BAD_REQUEST);
+        if (requestDTO.getStatus() != 0 && requestDTO.getStatus() != 1)
+            throw new BadRequest("The status field only accepts values 0 or 1", PATH_POST_PUT, HttpStatus.BAD_REQUEST);
         if (isNullOrEmpty(requestDTO.getStartDate()))
             throw new BadRequest("The startDate field value should not be null or empty", PATH_POST_PUT, HttpStatus.BAD_REQUEST);
         if (isNullOrEmpty(requestDTO.getDueDate()))

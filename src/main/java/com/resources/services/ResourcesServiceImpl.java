@@ -34,7 +34,8 @@ public class ResourcesServiceImpl implements ResourcesService {
 
 	@Override
 	public CreateStoryResponse createStory(StoryRequestDTO storyRequestDTO) {
-		storyRequestDTO.setSprintId("");
+		storyRequestDTO.setId(null);
+	    storyRequestDTO.setSprintId("");
 		storyRequestDTO.setUserId("");
 		validationPostPut(storyRequestDTO);
 		Story story = mapper.map(storyRequestDTO, Story.class);
