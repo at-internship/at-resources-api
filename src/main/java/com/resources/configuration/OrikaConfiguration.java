@@ -75,7 +75,7 @@ public class OrikaConfiguration extends ConfigurableMapper {
 
         @Override
         public Integer convertTo(String s, Type<Integer> type, MappingContext mappingContext) {
-            return PriorityConstants.valueOf(s.toUpperCase()).getOrd();
+            return PriorityConstants.valueOf(s).getOrd();
         }
 
         @Override

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum PriorityConstants {
-    HIGH(1),
-    MEDIUM(2),
-    LOW(3);
+    High(1),
+    Medium(2),
+    Low(3);
 
     private int ord;
 
