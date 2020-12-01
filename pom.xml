@@ -125,6 +125,7 @@
 					<excludes>
 						<exclude>**/domain/**/*</exclude>
 						<exclude>**/model/**/*</exclude>
+						<exclude>**/configuration/**/*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
